@@ -1,0 +1,111 @@
+openapi: 3.0.0
+info:
+  title: Create Business Account API
+  description: >
+    You can create a new business account by sending a POST request to the `/services/apexrest/businessaccountV1` endpoint.
+  version: 1.0.0
+paths:
+  /services/apexrest/businessaccountV1:
+    post:
+      summary: Create Business Account
+      operationId: createBusinessAccount
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/BusinessAccount"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Response"
+        "400":
+          description: Bad Request
+        "500":
+          description: Server Error
+components:
+  schemas:
+    BusinessAccount:
+      type: object
+      required:
+        - Name
+        - Company
+        - countryOfOrigin
+        - externalIds
+      properties:
+        Name:
+          type: string
+          example: New Pharmacy Co.
+        Company:
+          type: string
+          example: AndaNet
+        isHCP:
+          type: boolean
+          example: true
+        countryOfOrigin:
+          type: string
+          example: USA
+        AccountSegment:
+          type: array
+          items:
+            $ref: "#/components/schemas/AccountSegment"
+        addresses:
+          type: array
+          items:
+            $ref: "#/components/schemas/Address"
+        externalIds:
+          type: array
+          items:
+            type: object
+            properties:
+              ExternalId:
+                type: string
+                example: "12212121"
+    AccountSegment:
+      type: object
+      required: [Segment, Value]
+      properties:
+        Segment:
+          type: string
+          example: Company ID
+        Value:
+          type: string
+          example: "20"
+    Address:
+      type: object
+      properties:
+        AddressLine1:
+          type: string
+          example: 185 N Wilson
+        AddressLine2:
+          type: string
+          example: Apt 2b
+        AddressLine3:
+          type: string
+          example: Att. Sam
+        City:
+          type: string
+          example: Chicago
+        Country:
+          type: string
+          example: USA
+        State:
+          type: string
+          example: Illinois
+        postalCode:
+          type: string
+          example: 60610
+    Response:
+      type: object
+      properties:
+        status:
+          type: boolean
+        federationId:
+          type: string
+        errorMsg:
+          type: string
