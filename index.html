@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>API Docs</title>
+  <script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"></script>
+  <style>
+    body, html { margin:0; padding:0; height:100%; }
+    #redoc-container { height: 100vh; }
+  </style>
+</head>
+<body>
+  <div id="redoc-container"></div>
+  <script>
+    Redoc.init('swagger.yaml', {}, document.getElementById('redoc-container'))
+  </script>
+</body>
+</html>
